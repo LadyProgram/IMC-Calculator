@@ -8,14 +8,24 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.google.android.material.slider.Slider
+import java.util.Locale
 import kotlin.math.pow
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var heightEditText: EditText
-    lateinit var weightEditText: EditText
+    lateinit var heightTextView: TextView
+    lateinit var heightSlider: Slider
+
+    lateinit var weightTextView: TextView
+    lateinit var weightAddButton: Button
+    lateinit var weightMinusButton: Button
+
     lateinit var calculationButton: Button
     lateinit var resultTextView: TextView
+
+    var weight = 75.0f
+    var height = 170.0f
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,24 +41,52 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        heightEditText = findViewById(R.id.heightEditText)
-        weightEditText = findViewById(R.id.weightEditText)
+
+        heightTextView = findViewById(R.id.heightTextView)
+        heightSlider = findViewById(R.id.heightSlider)
+
+        weightTextView = findViewById(R.id.weightTextView)
+        weightAddButton = findViewById(R.id.weightAddButton)
+        weightMinusButton = findViewById(R.id.weightMinusButton)
+
+
+
+
+
         calculationButton = findViewById(R.id.calculationButton)
         resultTextView = findViewById(R.id.resultTextView)
 
-        heightEditText.setText("180")
-        weightEditText.setText("70")
+        heightSlider.addOnChangeListener { slider, value, fromUser ->
+            heightTextView.text = "${value.toInt()} cm"
+        }
 
+        weightAddButton.setOnClickListener {
+            weight ++
+            weightTextView.text = "${weight.toInt()} kg"
+        }
+
+        weightMinusButton.setOnClickListener {
+            weight --
+            weightTextView.text = "${weight.toInt()} kg"
+        }
+
+
+        //heightEditText.setText("180")
+        //weightEditText.setText("70")
 
         calculationButton.setOnClickListener {
-            val height = heightEditText.text.toString().toFloat()
-            val weight = weightEditText.text.toString().toFloat()
+            // val result = weight / (height / 100).pow(2)
+
+            //val height = 0f//heightEditText.text.toString().toFloat()
+            //val weight = 0f//weightEditText.text.toString().toFloat()
+
             val result = weight / (height / 100).pow(2)
 
-            println("Altura: " + heightEditText.text.toString())
-            println("Peso: " + weightEditText.text.toString())
+            //resultTextView.text = "$result"
+            resultTextView.text = String.format(Locale.getDefault(),"%.2f", result)
 
-            resultTextView.text = "$result"
+            // Con String.format le decimos cuántos decimales queremos que nos calcule.
+            // El locale.getDefault mira el idioma del dispositivo y lo aplica
         }
     }
 }
