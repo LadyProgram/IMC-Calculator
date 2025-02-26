@@ -4,4 +4,10 @@
     <color name="white">#FFFFFFFF</color>
     <color name="blueclaro">#71D6E7</color>
     <color name="background">#D8C5F6</color>
+    <color name="imc_underweight">#72CCC6</color>
+    <color name="imc_normal">#94E481</color>
+    <color name="imc_overweight">#E5F490</color>
+    <color name="imc_obesity1">#E4BF72</color>
+    <color name="imc_obesity2">#E4835D</color>
+    <color name="imc_obesity3">#D95C53</color>
 </resources>
